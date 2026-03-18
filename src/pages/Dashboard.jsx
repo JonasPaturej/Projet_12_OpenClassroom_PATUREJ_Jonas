@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getUserMainData, getUserActivity, /*getUserAverageSession, getUserPerformance*/  } from "../services/userService"
+import { getUserMainData, getUserActivity, getUserAverageSession, getUserPerformance } from "../services/userService"
 import UserBloc from "../components/UserBloc/UserBloc";
 import NutritionCard from "../components/Card/NutritionCard";
 import SimpleBarChart from "../components/Chart/ActivityChart";
+import SessionChart from "../components/Chart/AverageSessionChart";
+import PerformanceChart from "../components/Chart/PerformanceChart";
+import ScoreChart from "../components/Chart/ScoreChart";
 
 function Dashboard() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [activity, setActivity] = useState(null);
-  //const [sessions, setSessions] = useState(null);
-  //const [performance, setPerformance] = useState(null);
+  const [sessions, setSessions] = useState(null);
+  const [performance, setPerformance] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const userData = await getUserMainData(id);
         const activityData = await getUserActivity(id);
+        const sessionsData = await getUserAverageSession(id);
+        const performanceData = await getUserPerformance(id);
         setUser(userData);
         setActivity(activityData);
+        setSessions(sessionsData);
+        setPerformance(performanceData);
       } catch (error) {
         console.error("Erreur lors de la récupération utilisateur :", error);
       }
@@ -27,11 +34,9 @@ function Dashboard() {
     fetchData();
   }, [id]);
 
-  if(!user || !activity) {
+  if(!user || !activity || !sessions || !performance) {
     return <p>Chargement...</p>;
   }
-
-  console.log("data dans dashboard:", activity);
 
   return (
     <main>
@@ -53,7 +58,16 @@ function Dashboard() {
       </div>
 
       <div>
-        <SimpleBarChart data={activity}/>
+        <SimpleBarChart data={activity} />
+      </div>
+      <div>
+        <SessionChart data={sessions} />
+      </div>
+      <div>
+        <PerformanceChart data={performance} />
+      </div>
+      <div>
+        <ScoreChart score={user.todayScore || user.score} />
       </div>
     </main>
   );

@@ -1,12 +1,11 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const SimpleBarChart = ({ data }) => {
-  console.log("data dans chart:", data); 
 
   return (
     <BarChart
-      style={{ width: '100%', maxWidth: '700px', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
+      width={700}
+      height={300}
       data={data}      
       margin={{
         top: 5,
