@@ -1,0 +1,9 @@
+.app-layout {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
+}

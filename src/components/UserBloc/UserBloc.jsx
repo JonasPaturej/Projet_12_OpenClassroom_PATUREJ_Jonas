@@ -1,6 +1,8 @@
+import "./UserBloc.css";
+
 function UserBloc({ firstName }) {
     return (
-        <section>
+        <section className="user-bloc">
             <h1>
                 Bonjour <span>{firstName}</span>
             </h1>

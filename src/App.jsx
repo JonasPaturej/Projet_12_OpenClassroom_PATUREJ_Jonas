@@ -8,12 +8,14 @@ function App() {
   return (
     <>
     <Header />
-    <div className="app_layout">
+    <div className="app-layout">
       <Sidebar />
-      <Routes>
-        <Route path="/" element={<Navigate to="/user/12" replace />} />
-        <Route path="/user/:id" element={<Dashboard />} />
-      </Routes>
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={<Navigate to="/user/12" replace />} />
+          <Route path="/user/:id" element={<Dashboard />} />
+        </Routes>
+      </div>
     </div>
     </>
   )

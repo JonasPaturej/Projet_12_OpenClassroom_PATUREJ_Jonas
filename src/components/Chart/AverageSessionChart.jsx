@@ -1,6 +1,6 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-export default function SessionChart({ data }) {
+export default function SimpleLineChart({ data }) {
   return (
     <LineChart
       width={700}

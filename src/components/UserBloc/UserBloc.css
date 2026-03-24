@@ -1,0 +1,15 @@
+.user-bloc h1 {
+  font-size: 48px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #282d30;
+}
+
+.user-bloc h1 span {
+  color: #ff0101;
+}
+
+.user-bloc p {
+  font-size: 18px;
+  color: #282d30;
+}

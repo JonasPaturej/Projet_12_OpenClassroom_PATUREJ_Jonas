@@ -1,0 +1,65 @@
+.dashboard {
+  flex: 1;
+  padding: 40px 60px 40px 80px;
+  min-width: 0;
+}
+
+.dashboard_header {
+  margin-bottom: 40px;
+}
+
+.dashboard_content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.dashboard_left {
+  flex: 1;
+  min-width: 0;
+}
+
+.dashboard_activity {
+  background: #fbfbfb;
+  border-radius: 5px;
+  padding: 24px;
+  margin-bottom: 30px;
+  min-height: 320px;
+}
+
+.dashboard_bottom-charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.dashboard_chart-card {
+  background: #fbfbfb;
+  border-radius: 5px;
+  padding: 20px;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dashboard_chart-card--red {
+  background-color: #ff0000;
+}
+
+.dashboard_chart-card--dark {
+  background-color: #282d30;
+}
+
+.dashboard_chart-card--light {
+  background-color: #fbfbfb;
+}
+
+.dashboard_right {
+  width: 258px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex-shrink: 0;
+}

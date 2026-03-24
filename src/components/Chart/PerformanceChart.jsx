@@ -1,6 +1,6 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
-const PerformanceChart = ({ data }) => {
+const SimpleRadarChart = ({ data }) => {
   return (
     <RadarChart
       width={300}
@@ -16,4 +16,4 @@ const PerformanceChart = ({ data }) => {
   );
 };
 
-export default PerformanceChart;
+export default SimpleRadarChart;

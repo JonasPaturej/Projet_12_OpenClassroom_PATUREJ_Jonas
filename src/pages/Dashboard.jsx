@@ -4,9 +4,10 @@ import { getUserMainData, getUserActivity, getUserAverageSession, getUserPerform
 import UserBloc from "../components/UserBloc/UserBloc";
 import NutritionCard from "../components/Card/NutritionCard";
 import SimpleBarChart from "../components/Chart/ActivityChart";
-import SessionChart from "../components/Chart/AverageSessionChart";
-import PerformanceChart from "../components/Chart/PerformanceChart";
-import ScoreChart from "../components/Chart/ScoreChart";
+import SimpleLineChart from "../components/Chart/AverageSessionChart";
+import SimpleRadarChart from "../components/Chart/PerformanceChart";
+import SimpleRadialChart from "../components/Chart/ScoreChart";
+import "./Dashboard.css";
 
 function Dashboard() {
   const { id } = useParams();
@@ -39,36 +40,36 @@ function Dashboard() {
   }
 
   return (
-    <main>
-      <div>
+    <main className="dashboard">
+      <section className="dashboard_header">
         <UserBloc firstName={user.userInfos.firstName} />
-      </div>
+      </section>
 
-      <div>
-        <NutritionCard label="Calories" value={user.keyData.calorieCount} unit="kCal" />
-      </div>
-      <div>
-        <NutritionCard label="Proteines" value={user.keyData.proteinCount} unit="g" />
-      </div>
-      <div>
-        <NutritionCard label="Glucides" value={user.keyData.carbohydrateCount} unit="g" />
-      </div>
-      <div>
-        <NutritionCard label="Lipides" value={user.keyData.lipidCount} unit="g" />
-      </div>
+      <section className="dashboard_content">
+        <div className="dashboard_left">
+          <div className="dashboard_activity">
+            <SimpleBarChart data={activity} />
+          </div>
+          <div className="dashboard_bottom-charts">
+            <div className="dashboard_chart-card dashboard_chart-card--red">
+              <SimpleLineChart data={sessions} />
+            </div>
+            <div className="dashboard_chart-card dashboard_chart-card--dark">
+              <SimpleRadarChart data={performance} />
+            </div>
+            <div className="dashboard_chart-card dashboard_chart-card--light">
+              <SimpleRadialChart score={user.todayScore || user.score} />
+            </div>
+          </div>
+        </div>
 
-      <div>
-        <SimpleBarChart data={activity} />
-      </div>
-      <div>
-        <SessionChart data={sessions} />
-      </div>
-      <div>
-        <PerformanceChart data={performance} />
-      </div>
-      <div>
-        <ScoreChart score={user.todayScore || user.score} />
-      </div>
+        <aside className="dashboard_right">
+          <NutritionCard label="Calories" value={user.keyData.calorieCount} unit="kCal" />
+          <NutritionCard label="Proteines" value={user.keyData.proteinCount} unit="g" />
+          <NutritionCard label="Glucides" value={user.keyData.carbohydrateCount} unit="g" />
+          <NutritionCard label="Lipides" value={user.keyData.lipidCount} unit="g" />
+        </aside>
+      </section>  
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 
-const ScoreChart = ({ score }) => {
+const SimpleRadialChart = ({ score }) => {
     
     const data = [
         {
@@ -8,7 +8,7 @@ const ScoreChart = ({ score }) => {
         }
     ];
 return (
-    <RadialBarChart
+    <SimpleRadialChart
       width={200}
       height={200}
       innerRadius="80%"
@@ -19,8 +19,8 @@ return (
     >
         <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
         <RadialBar dataKey="value" fill="#FF0000" cornerRadius={10} />
-    </RadialBarChart>
+    </SimpleRadialChart>
   );
 }
 
-export default ScoreChart;
+export default RadialBarChart;
