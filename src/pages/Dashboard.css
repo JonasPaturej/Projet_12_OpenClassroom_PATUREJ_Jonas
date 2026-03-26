@@ -1,3 +1,14 @@
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ff0000;
+  text-align: center;
+}
+
 .dashboard {
   flex: 1;
   padding: 40px 60px 40px 80px;

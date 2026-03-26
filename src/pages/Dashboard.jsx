@@ -15,29 +15,41 @@ function Dashboard() {
   const [activity, setActivity] = useState(null);
   const [sessions, setSessions] = useState(null);
   const [performance, setPerformance] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const userData = await getUserMainData(id);
-        const activityData = await getUserActivity(id);
-        const sessionsData = await getUserAverageSession(id);
-        const performanceData = await getUserPerformance(id);
+        const[userData, activityData, sessionsData, performanceData] = 
+        await Promise.all([
+          getUserMainData(id),
+          getUserActivity(id),
+          getUserAverageSession(id),
+          getUserPerformance(id),
+        ]);
         setUser(userData);
         setActivity(activityData);
         setSessions(sessionsData);
         setPerformance(performanceData);
-      } catch (error) {
-        console.error("Erreur lors de la récupération utilisateur :", error);
+        setError(null);
+      } catch (err) {
+        console.error(err);
+        setError("Erreur de chargement des données");
       }
     }
 
     fetchData();
   }, [id]);
 
+  if(error) {
+    return <p className="error">Impossible de charger les données. Vérifiez que le backend est lancé.</p>
+  }
+
   if(!user || !activity || !sessions || !performance) {
     return <p>Chargement...</p>;
   }
+
+  const score = user.todayScore ?? user.score;
 
   return (
     <main className="dashboard">
@@ -58,7 +70,7 @@ function Dashboard() {
               <SimpleRadarChart data={performance} />
             </div>
             <div className="dashboard_chart-card dashboard_chart-card--light">
-              <SimpleRadialChart score={user.todayScore || user.score} />
+              <SimpleRadialChart score={score} />
             </div>
           </div>
         </div>

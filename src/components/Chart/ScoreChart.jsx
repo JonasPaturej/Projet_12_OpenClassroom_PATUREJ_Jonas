@@ -7,8 +7,9 @@ const SimpleRadialChart = ({ score }) => {
             value: score * 100
         }
     ];
+
 return (
-    <SimpleRadialChart
+    <RadialBarChart
       width={200}
       height={200}
       innerRadius="80%"
@@ -19,8 +20,8 @@ return (
     >
         <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
         <RadialBar dataKey="value" fill="#FF0000" cornerRadius={10} />
-    </SimpleRadialChart>
+    </RadialBarChart>
   );
 }
 
-export default RadialBarChart;
+export default SimpleRadialChart;
