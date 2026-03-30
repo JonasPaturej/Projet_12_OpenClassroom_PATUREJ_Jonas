@@ -1,18 +1,41 @@
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
+import "./PerformanceChart.css";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  ResponsiveContainer,
+} from "recharts";
 
 const SimpleRadarChart = ({ data }) => {
   return (
-    <RadarChart
-      width={300}
-      height={300}
-      outerRadius="70%"
-      data={data}
-    >
-      <PolarGrid />
-      <PolarAngleAxis dataKey="kind" />
-      <PolarRadiusAxis tick={false} axisLine={false} />
-      <Radar dataKey="value" stroke="#ff0000" fill="#ff0000" fillOpacity={0.7} />
-    </RadarChart>
+    <div className="performance-chart">
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart
+          cx="50%"
+          cy="50%"
+          outerRadius="65%"
+          data={data}
+        >
+          <PolarGrid radialLines={false} stroke="#FFFFFF" />
+          <PolarAngleAxis
+            dataKey="kind"
+            tick={{
+              fill: "#FFFFFF",
+              fontSize: 12,
+              fontWeight: 500,
+            }}
+          />
+          <PolarRadiusAxis tick={false} axisLine={false} />
+          <Radar
+            dataKey="value"
+            fill="#FF0101"
+            fillOpacity={0.7}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

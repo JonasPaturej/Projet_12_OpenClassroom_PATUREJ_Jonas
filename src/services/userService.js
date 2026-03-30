@@ -6,7 +6,7 @@ import {
   USER_PERFORMANCE,
 } from "../data/mockData";
 
-const USE_MOCK = true;
+const USE_MOCK = false;
 
 export async function getUserMainData(userId) {
   if (USE_MOCK) {
@@ -44,17 +44,19 @@ export async function getUserAverageSession(userId) {
     const userSessions = USER_AVERAGE_SESSIONS.find(
       (session) => session.userId === Number(userId),
     );
-    return userSessions.sessions.map((session) => ({
+    return userSessions.sessions.map((session, index) => ({
       day: days[session.day - 1],
       sessionLength: session.sessionLength,
+      index: index,
     }));
   }
 
   const response = await api.get(`/user/${userId}/average-sessions`);
   const sessions = response.data.data.sessions;
-  return sessions.map((session) => ({
+  return sessions.map((session, index) => ({
     day: days[session.day - 1],
     sessionLength: session.sessionLength,
+    index: index,
   }));
 }
 

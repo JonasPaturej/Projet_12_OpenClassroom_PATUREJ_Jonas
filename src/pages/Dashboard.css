@@ -11,8 +11,10 @@
 
 .dashboard {
   flex: 1;
-  padding: 40px 60px 40px 80px;
+  padding: 55px 130px 45px 100px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard_header {
@@ -21,12 +23,14 @@
 
 .dashboard_content {
   display: flex;
-  gap: 30px;
-  align-items: flex-start;
+  gap: 32px;
+  align-items: stretch;
 }
 
 .dashboard_left {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
@@ -34,21 +38,21 @@
   background: #fbfbfb;
   border-radius: 5px;
   padding: 24px;
-  margin-bottom: 30px;
-  min-height: 320px;
+  margin-bottom: 32px;
+  height: 320px;
+  display: flex;
 }
 
 .dashboard_bottom-charts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 4px;
 }
 
 .dashboard_chart-card {
-  background: #fbfbfb;
   border-radius: 5px;
-  padding: 20px;
-  min-height: 240px;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +75,101 @@
   width: 258px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
   flex-shrink: 0;
+  justify-content: space-between;
+}
+
+@media (max-width: 1300px) {
+  .dashboard {
+    padding: 40px 50px 35px 45px;
+  }
+
+  .dashboard_content {
+    gap: 24px;
+  }
+
+  .dashboard_right {
+    width: 230px;
+    gap: 20px;
+  }
+
+  .dashboard_bottom-charts {
+    gap: 18px;
+  }
+
+  .dashboard_chart-card {
+    height: 230px;
+  }
+
+  .dashboard_activity {
+    height: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard {
+    padding: 32px 35px 30px 30px;
+  }
+
+  .dashboard_header {
+    margin-bottom: 28px;
+  }
+
+  .dashboard_content {
+    gap: 20px;
+  }
+
+  .dashboard_right {
+    width: 210px;
+    gap: 18px;
+  }
+
+  .dashboard_bottom-charts {
+    gap: 14px;
+  }
+
+  .dashboard_chart-card {
+    height: 210px;
+  }
+
+  .dashboard_activity {
+    height: 280px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .dashboard {
+    padding: 24px 24px 24px 24px;
+  }
+
+  .dashboard_content {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .dashboard_right {
+    width: 100%;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .dashboard_right > * {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .dashboard_bottom-charts {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .dashboard_chart-card {
+    height: 240px;
+  }
+
+  .dashboard_activity {
+    height: 300px;
+  }
 }
