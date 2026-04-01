@@ -8,35 +8,35 @@ import {
 } from "recharts";
 
 const SimpleRadialChart = ({ score }) => {
-    const [chartConfig, setChartConfig] = useState({
-        barSize: 12,
-        innerRadius: "75%",
-        outerRadius: "90%",
-        cy: "50%",
-    })
+  const [chartConfig, setChartConfig] = useState({
+    barSize: 12,
+    innerRadius: "74%",
+    outerRadius: "88%",
+    cy: "50%",
+  });
 
   useEffect(() => {
     const updateChartSize = () => {
       if (window.innerWidth <= 1200) {
         setChartConfig({
-            barSize: 8,
-            innerRadius: "78%",
-            outerRadius: "90%",
-            cy: "53%",
+          barSize: 8,
+          innerRadius: "68%",
+          outerRadius: "86%",
+          cy: "50%",
         });
       } else if (window.innerWidth <= 1350) {
         setChartConfig({
-            barSize: 10,
-            innerRadius: "76%",
-            outerRadius: "90%",
-            cy: "52%",
+          barSize: 10,
+          innerRadius: "71%",
+          outerRadius: "87%",
+          cy: "49%",
         });
       } else {
         setChartConfig({
-            barSize: 12,
-            innerRadius: "75%",
-            outerRadius: "90%",
-            cy: "50%",
+          barSize: 12,
+          innerRadius: "74%",
+          outerRadius: "88%",
+          cy: "50%",
         });
       }
     };
@@ -47,55 +47,44 @@ const SimpleRadialChart = ({ score }) => {
     return () => window.removeEventListener("resize", updateChartSize);
   }, []);
 
-    const scoreValue = (score ?? 0) * 100;
-    const data = [
-        {
-            value: scoreValue,
-        },
-    ];
+  const scoreValue = (score ?? 0) * 100;
+  const data = [{ value: scoreValue }];
 
-    return (
+  return (
     <div className="score-chart">
-        <h2 className="score-chart_title">Score</h2>
+      <h2 className="score-chart_title">Score</h2>
 
-        <div className="score-chart_content">
-            <ResponsiveContainer width="100%" height="100%">
-                <RadialBarChart
-                    width={250}
-                    height={250}
-                    cx="50%"
-                    cy={chartConfig.cy}
-                    innerRadius={chartConfig.innerRadius}
-                    outerRadius={chartConfig.outerRadius}
-                    barSize={chartConfig.barSize}
-                    data={data}
-                    startAngle={90}
-                    endAngle={450}
-                >
-                <PolarAngleAxis
-                    type="number"
-                    domain={[0, 100]}
-                    tick={false}
-                />
+      <div className="score-chart_content">
+        <ResponsiveContainer width="100%" height="100%">
+          <RadialBarChart
+            cx="50%"
+            cy={chartConfig.cy}
+            innerRadius={chartConfig.innerRadius}
+            outerRadius={chartConfig.outerRadius}
+            barSize={chartConfig.barSize}
+            data={data}
+            startAngle={90}
+            endAngle={450}
+          >
+            <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
+            <RadialBar
+              dataKey="value"
+              fill="#FF0000"
+              cornerRadius={10}
+              background={{ fill: "#FBFBFB" }}
+            />
+          </RadialBarChart>
+        </ResponsiveContainer>
 
-                <RadialBar
-                    dataKey="value"
-                    fill="#FF0000"
-                    cornerRadius={10}
-                    background={{ fill: "#FBFBFB" }} 
-                />
-                </RadialBarChart>
-            </ResponsiveContainer>
-            
-            <div className="score-chart_text">
-            <p className="score-chart_percent">{scoreValue}%</p>
-            <p className="score-chart_label">
-                de votre
-                <br />
-                objectif
-            </p>
-            </div>
+        <div className="score-chart_text">
+          <p className="score-chart_percent">{scoreValue}%</p>
+          <p className="score-chart_label">
+            de votre
+            <br />
+            objectif
+          </p>
         </div>
+      </div>
     </div>
   );
 };

@@ -6,99 +6,71 @@ import {
   USER_PERFORMANCE,
 } from "../data/mockData";
 
-const USE_MOCK = false;
+import UserActivityModel from "../models/UserActivityModel";
+import UserAverageSession from "../models/UserAverageSession";
+import UserPerformance from "../models/UserPerformance";
+import UserMainData from "../models/UserMainData";
+
+const USE_MOCK = true;
 
 export async function getUserMainData(userId) {
+  let user;
+
   if (USE_MOCK) {
-    return USER_MAIN_DATA.find((user) => user.id === Number(userId));
+    user = USER_MAIN_DATA.find((u) => u.id === Number(userId));
+  } else {
+    const response = await api.get(`/user/${userId}`);
+    user = response.data.data;
   }
-  const response = await api.get(`/user/${userId}`);
-  return response.data.data;
+
+  return new UserMainData(user).format();
 }
 
 export async function getUserActivity(userId) {
+  let sessions;
+
   if (USE_MOCK) {
-    const userActivity = USER_ACTIVITY.find(
-      (activity) => activity.userId === Number(userId),
-    );
-    return userActivity.sessions.map((session, index) => ({
-      day: index + 1,
-      kilogram: session.kilogram,
-      calories: session.calories,
-    }));
+    const userActivity = USER_ACTIVITY.find((a) => a.userId === Number(userId));
+    sessions = userActivity.sessions;
+  } else {
+    const response = await api.get(`/user/${userId}/activity`);
+    sessions = response.data.data.sessions;
   }
 
-  const response = await api.get(`/user/${userId}/activity`);
-  const sessions = response.data.data.sessions;
-  return sessions.map((session, index) => ({
-    day: index + 1,
-    kilogram: session.kilogram,
-    calories: session.calories,
-  }));
+  return new UserActivityModel(sessions).format();
 }
 
 export async function getUserAverageSession(userId) {
-  const days = ["L", "M", "M", "J", "V", "S", "D"];
+  let sessions;
 
   if (USE_MOCK) {
     const userSessions = USER_AVERAGE_SESSIONS.find(
-      (session) => session.userId === Number(userId),
+      (s) => s.userId === Number(userId),
     );
-    return userSessions.sessions.map((session, index) => ({
-      day: days[session.day - 1],
-      sessionLength: session.sessionLength,
-      index: index,
-    }));
+    sessions = userSessions.sessions;
+  } else {
+    const response = await api.get(`/user/${userId}/average-sessions`);
+    sessions = response.data.data.sessions;
   }
 
-  const response = await api.get(`/user/${userId}/average-sessions`);
-  const sessions = response.data.data.sessions;
-  return sessions.map((session, index) => ({
-    day: days[session.day - 1],
-    sessionLength: session.sessionLength,
-    index: index,
-  }));
+  return new UserAverageSession(sessions).format();
 }
 
 export async function getUserPerformance(userId) {
-  const labels = {
-    cardio: "Cardio",
-    energy: "Énergie",
-    endurance: "Endurance",
-    strength: "Force",
-    speed: "Vitesse",
-    intensity: "Intensité",
-  };
-  const desiredOrder = [
-    "Intensité",
-    "Vitesse",
-    "Force",
-    "Endurance",
-    "Énergie",
-    "Cardio",
-  ];
+  let performanceData;
+  let kindData;
 
   if (USE_MOCK) {
     const userPerformance = USER_PERFORMANCE.find(
-      (performance) => performance.userId === Number(userId),
+      (p) => p.userId === Number(userId),
     );
-    const formattedData = userPerformance.data.map((item) => ({
-      kind: labels[userPerformance.kind[item.kind]],
-      value: item.value,
-    }));
-    return formattedData.sort(
-      (a, b) => desiredOrder.indexOf(a.kind) - desiredOrder.indexOf(b.kind),
-    );
+    performanceData = userPerformance.data;
+    kindData = userPerformance.kind;
+  } else {
+    const response = await api.get(`/user/${userId}/performance`);
+    performanceData = response.data.data.data;
+    kindData = response.data.data.kind;
   }
 
-  const response = await api.get(`/user/${userId}/performance`);
-  const performanceData = response.data.data.data;
-  const kindData = response.data.data.kind;
-  const formattedData = performanceData.map((item) => ({
-    kind: labels[kindData[item.kind]],
-    value: item.value,
-  }));
-  return formattedData.sort(
-    (a, b) => desiredOrder.indexOf(a.kind) - desiredOrder.indexOf(b.kind),
-  );
+  return new UserPerformance(performanceData, kindData).format();
 }
