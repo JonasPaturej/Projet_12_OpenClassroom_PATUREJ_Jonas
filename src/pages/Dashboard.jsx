@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom"
 import { getUserMainData, getUserActivity, getUserAverageSession, getUserPerformance } from "../services/userService"
 import UserBloc from "../components/UserBloc/UserBloc";
 import NutritionCard from "../components/Card/NutritionCard";
-import SimpleBarChart from "../components/Chart/ActivityChart";
-import SimpleLineChart from "../components/Chart/AverageSessionChart";
-import SimpleRadarChart from "../components/Chart/PerformanceChart";
-import SimpleRadialChart from "../components/Chart/ScoreChart";
+import SimpleBarChart from "../components/Chart/SimpleBarChart";
+import SimpleLineChart from "../components/Chart/SimpleLineChart";
+import SimpleRadarChart from "../components/Chart/SimpleRadarChart";
+import SimpleRadialChart from "../components/Chart/SimpleRadialChart";
 import "./Dashboard.css";
 
 function Dashboard() {

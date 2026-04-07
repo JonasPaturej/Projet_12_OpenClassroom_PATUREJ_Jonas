@@ -1,4 +1,4 @@
-import "./PerformanceChart.css";
+import "./SimpleRadarChart.css";
 import {
   Radar,
   RadarChart,

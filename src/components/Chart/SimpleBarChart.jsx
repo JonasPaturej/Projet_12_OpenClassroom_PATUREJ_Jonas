@@ -1,4 +1,4 @@
-import "./ActivityChart.css";
+import "./SimpleBarChart.css";
 import {
   BarChart,
   Bar,

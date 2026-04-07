@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./ScoreChart.css";
+import "./SimpleRadialChart.css";
 import {
   RadialBarChart,
   RadialBar,

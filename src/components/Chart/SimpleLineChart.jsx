@@ -1,4 +1,4 @@
-import "./AverageSessionChart.css";
+import "./SimpleLineChart.css";
 import {
   LineChart,
   Line,
